@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Respawn Continuity Doctrine</title>
+  <meta name="description" content="A living field kit to convert collapse into continuity across lifetimes: seeds, stories, sanctuaries." />
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="preload" href="styles.css" as="style" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Enable View Transitions (no-op if unsupported)
+    document.documentElement.classList.toggle('supports-view-transitions', !!document.startViewTransition);
+
+    // Respect reduced motion early
+    try {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.dataset.motion = 'reduce';
+      }
+    } catch(_) {}
+  </script>
+</head>
+<body>
+  <!-- Embedded offline PromptPack fallback -->
+  <script type="application/json" id="promptpack-fallback">
+  {
+    "version": "fallback-2025.08.30",
+    "meta": {"name": "Fallback Pack","description":"Local embedded defaults"},
+    "tokens": {
+      "brand": {"accent":"#4ade80","accent2":"#60a5fa","warning":"#f59e0b","danger":"#ef4444"},
+      "surface": {"bgDark":"#0b0f14","bgSoft":"#0f1520","panel":"#111827","ink":"#e5f0ff","muted":"#9fb3c8"}
+    },
+    "copy": {
+      "badge": "Continuity Node v1",
+      "siteTitle": "Respawn Continuity Doctrine",
+      "siteTagline": "Convert collapse into continuity.",
+      "ctaPrimary": "Open Field Kit",
+      "ctaSecondary": "Browse Blueprints"
+    },
+    "patterns": {
+      "nav": ["Home","Blueprints","Field Kit","Community","About"],
+      "footerLinks": [
+        {"label":"Ethics & Guardrails","href":"#"},
+        {"label":"Continuity Log","href":"#"},
+        {"label":"Precedent Index","href":"#"}
+      ]
+    },
+    "a11y":{"minContrast":"AA","reducedMotionDefault": true}
+  }
+  </script>
+
+  <!-- App Shell Web Component -->
+  <app-shell unresolved>
+    <nav slot="top"></nav>
+    <main slot="main">
+      <section class="hero">
+        <span class="badge"></span>
+        <h1 id="site-title"></h1>
+        <p class="tagline" id="site-tagline"></p>
+        <div class="cta">
+          <button class="btn btn-primary" id="cta-primary"></button>
+          <button class="btn btn-secondary" id="cta-secondary"></button>
+        </div>
+      </section>
+
+      <section class="grid cards" id="blueprint-grid" aria-label="Featured Blueprints">
+        <!-- Cards injected by ui.js -->
+      </section>
+    </main>
+    <footer slot="bottom" class="footer">
+      <ul id="footer-links"></ul>
+      <small>© <span id="year"></span> Continuity Network • AGPL-3.0-or-later</small>
+    </footer>
+  </app-shell>
+
+  <!-- Overlay (translucent, minimizable) -->
+  <overlay-panel id="overlay">
+    <button slot="action" data-action="minimize" aria-label="Minimize overlay">—</button>
+    <h2 slot="title">Quick Actions</h2>
+    <div slot="content">
+      <ul class="quick-actions">
+        <li><button data-open="field-kit">Open Field Kit</button></li>
+        <li><button data-open="community">Open Community</button></li>
+        <li><button data-toggle="theme">Toggle Theme</button></li>
+        <li><button data-check-updates>Check Updates</button></li>
+      </ul>
+    </div>
+  </overlay-panel>
+
+  <noscript>
+    <div class="noscript">This app runs without JS, but interactivity is limited. Core content remains available offline.</div>
+  </noscript>
+
+  <script type="module" src="ui.js"></script>
+  <script>
+    // Register SW (offline-first + upgradable)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(console.error);
+    }
+  </script>
+</body>
+</html>
+

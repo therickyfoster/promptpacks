@@ -1,0 +1,43 @@
+{
+  "version": "2025.08.30-core",
+  "meta": {
+    "name": "Prime Sentinel – Core UI/UX Directives",
+    "description": "Regenerative UI patterns, copy, and guardrails for HTML-native sites.",
+    "license": "AGPL-3.0-or-later"
+  },
+  "tokens": {
+    "brand": {
+      "accent": "#4ade80",
+      "accent2": "#60a5fa",
+      "warning": "#f59e0b",
+      "danger": "#ef4444"
+    },
+    "surface": {
+      "bgDark": "#0b0f14",
+      "bgSoft": "#0f1520",
+      "panel": "#111827",
+      "ink": "#e5f0ff",
+      "muted": "#9fb3c8"
+    }
+  },
+  "copy": {
+    "badge": "Continuity Node v1",
+    "siteTitle": "Respawn Continuity Doctrine",
+    "siteTagline": "A living field kit to convert collapse into continuity: seeds, stories, sanctuaries.",
+    "ctaPrimary": "Open Field Kit",
+    "ctaSecondary": "Browse Blueprints"
+  },
+  "patterns": {
+    "nav": ["Home", "Blueprints", "Field Kit", "Community", "About"],
+    "footerLinks": [
+      {"label":"Ethics & Guardrails","href":"/ethics.html"},
+      {"label":"Continuity Log","href":"/continuity.html"},
+      {"label":"Precedent Index","href":"/precedents.html"}
+    ]
+  },
+  "a11y": {
+    "minContrast": "AA",
+    "reducedMotionDefault": true
+  }
+}
+

@@ -1,0 +1,13 @@
+/ (folder)
+  index.html
+  styles.css
+  ui.js
+  sw.js
+  manifest.webmanifest
+  /assets
+    icon.svg
+    icon-192.png
+    icon-512.png
+  /promptpacks
+    core.json
+

@@ -1,0 +1,118 @@
+/* Root tokens (overridden by PromptPack at runtime via CSS variables) */
+:root {
+  color-scheme: light dark;
+  --bg: #0b0f14;
+  --bg-soft:#0f1520;
+  --panel:#111827;
+  --ink:#e5f0ff;
+  --muted:#9fb3c8;
+  --accent:#4ade80;
+  --accent-2:#60a5fa;
+  --accent-3:#f59e0b;
+  --danger:#ef4444;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --gap: clamp(12px, 2vmin, 24px);
+  --maxw: 1200px;
+  --trans: 260ms cubic-bezier(.2,.8,.2,1);
+}
+
+html[data-theme="dark"] {
+  --bg: #0b0f14; --ink:#e5f0ff;
+}
+html[data-theme="light"] {
+  --bg: #f8fbff; --ink:#0b0f14; --panel:#ffffff; --bg-soft:#f0f4fa;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 500 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
+}
+
+app-shell[unresolved] { visibility: hidden; }
+app-shell {
+  display: grid; min-height: 100svh;
+  grid-template-rows: auto 1fr auto;
+}
+
+nav {
+  position: sticky; top: 0; backdrop-filter: blur(8px);
+  background: color-mix(in oklab, var(--bg) 80%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--ink) 15%, transparent);
+}
+
+nav .wrap, .hero .wrap, .footer {
+  max-width: var(--maxw); margin: 0 auto; padding: 12px var(--gap);
+  display: flex; align-items: center; gap: var(--gap);
+}
+
+nav a {
+  text-decoration: none; color: var(--muted);
+  padding: 8px 12px; border-radius: 10px;
+}
+nav a:is(:hover,:focus-visible, :has(> span[aria-current="page"])) { 
+  background: color-mix(in oklab, var(--ink) 10%, transparent);
+  color: var(--ink);
+}
+
+.hero {
+  padding: calc(var(--gap) * 3) var(--gap);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--accent) 10%, transparent), transparent),
+    radial-gradient(900px 400px at 90% -20%, color-mix(in oklab, var(--accent-2) 12%, transparent), transparent);
+}
+.hero .badge {
+  display: inline-block; padding: 6px 10px; border-radius: 9999px;
+  background: color-mix(in oklab, var(--accent) 22%, transparent); color: var(--ink);
+  font-weight: 700; letter-spacing: .3px;
+}
+.hero h1 { font-size: clamp(28px, 4vw, 48px); margin: 10px 0 6px; }
+.hero .tagline { color: var(--muted); max-width: 65ch; }
+
+.btn { border: 0; padding: 12px 16px; border-radius: 12px; cursor: pointer; }
+.btn-primary { background: var(--accent); color: #072; font-weight: 800; }
+.btn-secondary { background: color-mix(in oklab, var(--ink) 12%, transparent); color: var(--ink); }
+.btn:where(:hover,:focus-visible) { transform: translateY(-1px); box-shadow: var(--shadow); transition: transform var(--trans); }
+
+.grid.cards {
+  display: grid; gap: var(--gap);
+  grid-template-columns: repeat(12, 1fr);
+  padding: calc(var(--gap) * 2) var(--gap);
+  container: cards / inline-size;
+}
+.grid.cards > article {
+  grid-column: span 12;
+  background: var(--panel); border: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
+  border-radius: var(--radius); padding: var(--gap);
+  transition: transform var(--trans), box-shadow var(--trans);
+}
+@container cards (min-width: 700px) {
+  .grid.cards > article { grid-column: span 6; }
+}
+@container cards (min-width: 1000px) {
+  .grid.cards > article { grid-column: span 4; }
+}
+.grid.cards > article:is(:hover, :focus-within) { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+.footer { padding: 24px var(--gap); border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); flex-direction: column; align-items: flex-start; gap: 8px; }
+.footer ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 16px; flex-wrap: wrap; }
+.footer a { color: var(--muted); }
+
+/* Overlay panel (translucent, minimizable) */
+overlay-panel {
+  position: fixed; right: var(--gap); bottom: var(--gap);
+  width: min(420px, 92vw);
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+  border: 1px solid color-mix(in oklab, var(--ink) 15%, transparent);
+  border-radius: 18px; backdrop-filter: blur(10px);
+  box-shadow: var(--shadow); padding: var(--gap); z-index: 20;
+}
+overlay-panel[minimized] { transform: translateY(70%); opacity: .85; }
+overlay-panel .quick-actions { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
+
+/* Motion safety */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
